@@ -101,7 +101,6 @@ void RRT::findPath() {
 		node_near = getNear(point_rand);
 		point_near = node_near->position;
 		point_new = steer(point_rand, point_near);
-		int val = mat_bin_.at<uchar>(point_new[0], point_new[1]);
 		if (collisionCheck(point_new, point_near)) {
 			circle(mat_temp, Point(point_rand[1], point_rand[0]), 4, Scalar(255, 0, 0), -1);	//blue
 			circle(mat_temp, Point(point_new[1], point_new[0]), 4, Scalar(0, 0, 255), -1);		//red
@@ -170,7 +169,6 @@ bool RRT::collisionCheck(vector<int> point1, vector<int> point2) {
 	for (int i = 0; i < distance; ++i) {
 		point_temp[0] = point1[0] + (int)((point2[0] - point1[0]) * i / distance);
 		point_temp[1] = point1[1] + (int)((point2[1] - point1[1]) * i / distance);
-		cout << (int)mat_bin_.at<uchar>(point_temp[0], point_temp[1]);
 		if (!isPointFeasible(point_temp)) {
 			cout << " false" << endl;
 			return false;
@@ -183,8 +181,8 @@ bool RRT::collisionCheck(vector<int> point1, vector<int> point2) {
 }
 
 bool RRT::isPointFeasible(vector<int> point) {
-	if (point[0] >= 1 && point[0] <= map_size_[0] &&
-		point[1] >= 1 && point[1] <= map_size_[1] &&
+	if (point[0] > 0 && point[0] < map_size_[0] &&
+		point[1] > 0 && point[1] < map_size_[1] &&
 		(int)mat_bin_.at<uchar>(point[0], point[1]) < 100)
 	{
 		return false;
