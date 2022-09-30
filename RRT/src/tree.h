@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <float.h>
+#include <cmath>
 using namespace std;
 
 class Tree
