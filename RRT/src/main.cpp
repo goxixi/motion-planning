@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    string picture = "newmap.png";
+    string picture = "../map/newmap.png";
     Map map(picture, 100, 20, 500, 600);
     RRT rrt(map);
     rrt.findPath();
