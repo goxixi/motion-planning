@@ -1,8 +1,7 @@
 # RRT planner
 
 # demos
-<img src='demo01.gif' width=30%>
-<img src='demo02.gif' width=28.8%>
+<img src='demo01.gif' width=30%>　<img src='demo02.gif' width=28.8%>
 
 # dependence
 ## cmake
