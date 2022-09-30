@@ -1,27 +1,27 @@
 # RRT planner
 
-# demos
+## demos
 <img src='demo01.gif' width=30%>　<img src='demo02.gif' width=28.8%>
 
-# dependence
-## cmake
-## opencv 4
+## dependence
+### cmake
+### opencv 4
 * [opencv 4.5.2](https://github.com/goxixi/motion-planning/wiki#how-to-configurate-opencv)
 
-# make
+## make
 ```
 mkdir RRT/build
 cd RRT/build
 cmake ..
 make
 ```
-# run
+## run
 ```
 ./bin/RRT_PLANNER
 ```
 input `ctrl+c` to exit
 
-# modify some params
+## modify some params
 1.start_point
 
 main.cpp
