@@ -6,7 +6,7 @@
 # dependence
 ## cmake
 ## opencv 4
-* [opencv 4.5.2](https://github.com/goxixi/motion-planner/wiki/Home)
+* [opencv 4.5.2](https://github.com/goxixi/motion-planning/wiki#how-to-configurate-opencv)
 
 # make
 ```
