@@ -37,7 +37,7 @@ public:
 	 * @param a point
 	 * @return true -- outside the obstacle; false -- in the obstacle
 	 */
-	Map::isPointFeasible(vector<int> point);
+	Map::isFeasiblePoint(vector<int> point);
 private:
 	//the mat with 3 channals
 	Mat mat_init_;
@@ -104,7 +104,7 @@ double RRT::getDistance(vector<int> x1, vector<int> x2) {
 	return sqrt((x1[0] - x2[0]) * (x1[0] - x2[0]) + (x1[1] - x2[1]) * (x1[1] - x2[1]));
 }
 
-bool Map::isPointFeasible(vector<int> point) {
+bool Map::isPointFeasiblePoint(vector<int> point) {
 	if (point[0] > 0 && point[0] < map_size_[0] &&
 		point[1] > 0 && point[1] < map_size_[1] &&
 		(int)mat_bin_.at<uchar>(point[0], point[1]) < 100)
