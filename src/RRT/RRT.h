@@ -48,12 +48,13 @@ private:
 	 */
 	vector<int> steer(vector<int> point_rand, vector<int> point_near);
 
+	//modify:has been moved to src/map.h
 	/**
-	 * @brief check if the point is in the obstacle
-	 * @param a point
-	 * @return true -- outside the obstacle; false -- in the obstacle
+	 * @brief get distance
+	 * @param two point
+	 * @return the Euclidean Distance between x1 and x2
 	 */
-	double getDistance(vector<int> x1, vector<int> x2);
+	// double getDistance(vector<int> x1, vector<int> x2);
 
 	/**
 	 * @brief check success to find the path
@@ -69,12 +70,13 @@ private:
 	 */
 	bool collisionCheck(vector<int> point1, vector<int> point2);
 
+	//modify:has been moved to src/map.h
 	/**
 	 * @check if the point is in the obstacle
 	 * @param a point
 	 * @return true -- outside the obstacle; false -- in the obstacle
 	 */
-	bool isPointFeasible(vector<int> point);
+	// bool isPointFeasible(vector<int> point);
 };
 
 RRT::RRT(Map& map) : map_(map), point_start_(map.getStart()), point_goal_(map.getGoal()), map_size_(map.getMapSize()), mat_bin_(map.getMatBin()) {
@@ -88,7 +90,7 @@ RRT::~RRT() {}
 void RRT::findPath() {
 	Mat mat_temp = map_.getMat();
 
-	circle(mat_temp, Point(point_start_[1], point_start_[0]), 8, Scalar(0, 0, 255), -1);	//red »­µãÓÃµÄ×ø±ê¸úÈ¡Í¼Æ¬Ä³¸öÏñËØµãµÄÖµÓÃµÄ×ø±êÊÇ·´µÄ
+	circle(mat_temp, Point(point_start_[1], point_start_[0]), 8, Scalar(0, 0, 255), -1);	//red ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡Í¼Æ¬Ä³ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½Öµï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½
 	circle(mat_temp, Point(point_goal_[1], point_goal_[0]), 8, Scalar(0, 255, 0), -1);		//green
 
 	vector<int> point_rand;
@@ -158,9 +160,9 @@ inline bool RRT::isSuccess(vector<int> point_new) {
 	return false;
 }
 
-double RRT::getDistance(vector<int> x1, vector<int> x2) {
-	return sqrt((x1[0] - x2[0]) * (x1[0] - x2[0]) + (x1[1] - x2[1]) * (x1[1] - x2[1]));
-}
+// double RRT::getDistance(vector<int> x1, vector<int> x2) {
+// 	return sqrt((x1[0] - x2[0]) * (x1[0] - x2[0]) + (x1[1] - x2[1]) * (x1[1] - x2[1]));
+// }
 
 bool RRT::collisionCheck(vector<int> point1, vector<int> point2) {
 	//return isPointFeasible(point1);
@@ -169,7 +171,7 @@ bool RRT::collisionCheck(vector<int> point1, vector<int> point2) {
 	for (int i = 0; i < distance; ++i) {
 		point_temp[0] = point1[0] + (int)((point2[0] - point1[0]) * i / distance);
 		point_temp[1] = point1[1] + (int)((point2[1] - point1[1]) * i / distance);
-		if (!isPointFeasible(point_temp)) {
+		if (!map_.isPointFeasible(point_temp)) {
 			cout << " false" << endl;
 			return false;
 		}
@@ -180,14 +182,14 @@ bool RRT::collisionCheck(vector<int> point1, vector<int> point2) {
 	return true;
 }
 
-bool RRT::isPointFeasible(vector<int> point) {
-	if (point[0] > 0 && point[0] < map_size_[0] &&
-		point[1] > 0 && point[1] < map_size_[1] &&
-		(int)mat_bin_.at<uchar>(point[0], point[1]) < 100)
-	{
-		return false;
-	}
-	return true;
-}
+// bool RRT::isPointFeasible(vector<int> point) {
+// 	if (point[0] > 0 && point[0] < map_size_[0] &&
+// 		point[1] > 0 && point[1] < map_size_[1] &&
+// 		(int)mat_bin_.at<uchar>(point[0], point[1]) < 100)
+// 	{
+// 		return false;
+// 	}
+// 	return true;
+// }
 
 #endif // !_RRT_H_

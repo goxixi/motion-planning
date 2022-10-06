@@ -26,11 +26,23 @@ public:
 	Mat getMat();
 	Mat getMatBin();
 	vector<int> getMapSize();
+	/**
+	 * @brief get distance
+	 * @param two point
+	 * @return the Euclidean Distance between x1 and x2
+	 */
+	double getDistance(vector<int> x1, vector<int> x2);
+	/**
+	 * @check if the point is in the obstacle
+	 * @param a point
+	 * @return true -- outside the obstacle; false -- in the obstacle
+	 */
+	Map::isPointFeasible(vector<int> point);
 private:
-	//三通道的地图Mat
+	//the mat with 3 channals
 	Mat mat_init_;
-	//单通道的地图Mat
-	Mat mat_bin;
+	//the mat with 1 channal
+	Mat mat_bin_;
 	vector<int> start_point_ = {10,10};
 	vector<int> goal_point_ = {50,50};
 	vector<int> map_size_ = {0,0};
@@ -49,10 +61,9 @@ Map::Map(string picture,int start_x, int start_y, int goal_x, int goal_y) {
 	}
 	map_size_[0] = mat_init_.rows;
 	map_size_[1] = mat_init_.cols;
-	//灰度化
-	cvtColor(mat_init_, mat_bin, COLOR_BGR2GRAY);
-	//二值化
-	//threshold(mat_bin, mat_bin, 100, 200, THRESH_BINARY);
+
+	cvtColor(mat_init_, mat_bin_, COLOR_BGR2GRAY);
+	//threshold(mat_bin_, mat_bin_, 100, 200, THRESH_BINARY);
 }
 
 Map::~Map() {}
@@ -70,11 +81,37 @@ Mat Map::getMat() {
 }
 
 Mat Map::getMatBin() {
-	return mat_bin.clone();
+	return mat_bin_.clone();
 }
 
 vector<int> Map::getMapSize() {
 	return map_size_;
+}
+
+double RRT::getDistance(vector<int> x1, vector<int> x2) {
+	if(x1[0] < 0 || x1[0] >= map_size_[0] ||
+		x1[1] < 0 || x1[1] >= map_size_[1]) 
+	{
+		cout << "fail: the first point is out the map";
+		return -1;
+	}
+	if(x2[0] < 0 || x2[0] >= map_size_[0] ||
+		x2[1] < 0 || x2[1] >= map_size_[1]) 
+	{
+		cout << "fail: the second point is out the map";
+		return -1;
+	}
+	return sqrt((x1[0] - x2[0]) * (x1[0] - x2[0]) + (x1[1] - x2[1]) * (x1[1] - x2[1]));
+}
+
+bool Map::isPointFeasible(vector<int> point) {
+	if (point[0] > 0 && point[0] < map_size_[0] &&
+		point[1] > 0 && point[1] < map_size_[1] &&
+		(int)mat_bin_.at<uchar>(point[0], point[1]) < 100)
+	{
+		return false;
+	}
+	return true;
 }
 
 #endif // !_MAP_H_
