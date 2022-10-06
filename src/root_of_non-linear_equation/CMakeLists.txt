@@ -1,3 +1,0 @@
-project(ROOT_OF_NON-LINEAR_EQUATION)
-
-add_executable(ROOT_OF_NON-LINEAR_EQUATION main.cpp)
