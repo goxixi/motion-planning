@@ -1,5 +1,5 @@
-#ifndef _PRIORITY_pri_que_H_
-#define _PRIORITY_pri_que_H_
+#ifndef _PRI_QUEUE_H_
+#define _PRI_QUEUE_H_
 
 #include <utility>
 #include <vector>
@@ -86,4 +86,4 @@ bool PriQueue::empty() {
     return pri_que_.empty();
 }
 
-#endif // !_PRIORITY_pri_que_H_
+#endif // !_PRI_QUEUE_H_

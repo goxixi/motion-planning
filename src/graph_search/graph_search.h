@@ -7,7 +7,7 @@
 #include <set>
 
 #include "../map.h"
-#include "node_queue.h"
+#include "pri_queue.h"
 
 using namespace std;
 
