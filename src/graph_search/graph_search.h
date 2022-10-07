@@ -5,6 +5,7 @@
 #include <queue>
 #include <utility>
 #include <set>
+#include <map>
 
 #include "../map.h"
 #include "pri_queue.h"
@@ -21,7 +22,8 @@ public:
 
 protected:
     PriQueue open_list_;
-    set<pair<int,int>> close_list_;    //point, point's parent
+    // set<pair<int,int>> close_list_;    //point
+    map<pair<int,int>,pair<int,int>> close_list_;    //point, point's parent
 
     pair<int, int> point_start_;
     pair<int, int> point_goal_;
