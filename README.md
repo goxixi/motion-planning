@@ -6,7 +6,8 @@ I am learning motion-planning algorithms, so I plan to implement some classical 
 By the way, this is my first public repo!
 
 ## demos
-<img src='demo01.gif' width=30%>　<img src='demo02.gif' width=28.8%>
+### 1.RRT
+<img src='demo/demo01.gif' width=30%>　<img src='demo/demo02.gif' width=28.8%>
 
 ## dependence
 ### 1.cmake
