@@ -5,5 +5,5 @@ project(PLANNER)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
-add_subdirectory(src/RRT bin)
+add_subdirectory(src bin)
 

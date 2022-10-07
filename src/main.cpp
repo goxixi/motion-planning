@@ -1,4 +1,5 @@
 #include "RRT/RRT.h"
+#include "graph_search/dijkstra.h"
 
 int main(void)
 {
