@@ -3,9 +3,13 @@
 
 int main(void)
 {
-    string picture = "../map_demo/newmap.png";
+    string picture = "../map/newmap.png";
     Map map(picture, 100, 20, 500, 600);
-    RRT rrt(map);
-    rrt.findPath();
+    // RRT rrt(map);
+    // rrt.findPath();
+    Dijkstra dijkstra;
+    dijkstra.setMap(map);
+    dijkstra.findPath();
+
     return 0;
 }

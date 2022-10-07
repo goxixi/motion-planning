@@ -90,7 +90,7 @@ RRT::~RRT() {}
 void RRT::findPath() {
 	Mat mat_temp = map_.getMat();
 
-	circle(mat_temp, Point(point_start_[1], point_start_[0]), 8, Scalar(0, 0, 255), -1);	//red �����õ������ȡͼƬĳ�����ص��ֵ�õ������Ƿ���
+	circle(mat_temp, Point(point_start_[1], point_start_[0]), 8, Scalar(0, 0, 255), -1);	//red
 	circle(mat_temp, Point(point_goal_[1], point_goal_[0]), 8, Scalar(0, 255, 0), -1);		//green
 
 	vector<int> point_rand;

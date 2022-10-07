@@ -71,7 +71,7 @@ bool PriQueue::decreaseKey(int index, double new_cost) {
 
 int PriQueue::find(pair<int,int> point) {
     for(int i=0; i<pri_que_.size(); ++i) {
-        if(pri_que_[i]->pos < point) {
+        if(pri_que_[i]->pos == point) {
             return i;
         }
     }
