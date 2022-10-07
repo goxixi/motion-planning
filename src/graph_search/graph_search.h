@@ -62,11 +62,12 @@ PriQueueNode* GraphSearcher::createPriQueueNode(pair<int,int> point, PriQueueNod
 
 vector<pair<int,int>> GraphSearcher::getUnexpandedNeighbors(pair<int,int> point) {
     vector<pair<int,int>> neighbors;
-    int step = 20;
+    int step = 10;
     for(int i=-step; i<=step; i+=step) {
         for(int j=-step; j<=step; j+=step) {
-            if(map_.isFeasiblePoint(point) && close_list_.find(point) != close_list_.end() && (i!=0 || j!=0)) {
-                neighbors.emplace_back(pair<int,int>{point.first+i, point.second+j});
+            pair<int,int> point_new = pair<int,int>{point.first+i, point.second+j};
+            if(map_.isFeasiblePoint(point_new) && close_list_.find(point_new) == close_list_.end() && (i!=0 || j!=0)) {
+                neighbors.emplace_back(point_new);
             }
         }
     }
