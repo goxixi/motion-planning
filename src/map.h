@@ -19,6 +19,7 @@ public:
 	 * @prama goal point's x coordinate
 	 * @prama goal point's y coordinate
 	 */
+	Map();
 	Map(string picture, int start_x, int start_y, int goal_x, int goal_y);
 	~Map();
 	vector<int> getStart();
@@ -26,18 +27,27 @@ public:
 	Mat getMat();
 	Mat getMatBin();
 	vector<int> getMapSize();
+
 	/**
 	 * @brief get distance
-	 * @param two point
+	 * @param two point(vector<int>{x, y})
 	 * @return the Euclidean Distance between x1 and x2
 	 */
 	double getDistance(vector<int> x1, vector<int> x2);
+
+	/**
+	 * @brief get distance
+	 * @param two point(pair<int,int>)
+	 * @return the Euclidean Distance between x1 and x2
+	 */
+	double getDistance(pair<int,int> x1, pair<int,int> x2);
+
 	/**
 	 * @check if the point is in the obstacle
 	 * @param a point
 	 * @return true -- outside the obstacle; false -- in the obstacle
 	 */
-	Map::isFeasiblePoint(vector<int> point);
+	bool isFeasiblePoint(vector<int> point);
 private:
 	//the mat with 3 channals
 	Mat mat_init_;
@@ -49,6 +59,7 @@ private:
 	vector<vector<int>> path_;
 };
 
+Map::Map() {};
 Map::Map(string picture,int start_x, int start_y, int goal_x, int goal_y) {
 	start_point_[0] = start_x;
 	start_point_[1] = start_y;
@@ -88,7 +99,7 @@ vector<int> Map::getMapSize() {
 	return map_size_;
 }
 
-double RRT::getDistance(vector<int> x1, vector<int> x2) {
+double Map::getDistance(vector<int> x1, vector<int> x2) {
 	if(x1[0] < 0 || x1[0] >= map_size_[0] ||
 		x1[1] < 0 || x1[1] >= map_size_[1]) 
 	{
@@ -104,7 +115,24 @@ double RRT::getDistance(vector<int> x1, vector<int> x2) {
 	return sqrt((x1[0] - x2[0]) * (x1[0] - x2[0]) + (x1[1] - x2[1]) * (x1[1] - x2[1]));
 }
 
-bool Map::isPointFeasiblePoint(vector<int> point) {
+double Map::getDistance(pair<int,int> x1, pair<int,int> x2) {
+	if(x1.first < 0 || x1.first >= map_size_[0] ||
+		x1.second < 0 || x1.second >= map_size_[1]) 
+	{
+		cout << "fail: the first point is out the map";
+		return -1;
+	}
+	if(x2.first < 0 || x2.first >= map_size_[0] ||
+		x2.second < 0 || x2.second >= map_size_[1]) 
+	{
+		cout << "fail: the second point is out the map";
+		return -1;
+	}
+	return sqrt((x1.first - x2.first) * (x1.first - x2.first) 
+				+ (x1.first - x2.first) * (x1.first - x2.first));
+}
+
+bool Map::isFeasiblePoint(vector<int> point) {
 	if (point[0] > 0 && point[0] < map_size_[0] &&
 		point[1] > 0 && point[1] < map_size_[1] &&
 		(int)mat_bin_.at<uchar>(point[0], point[1]) < 100)

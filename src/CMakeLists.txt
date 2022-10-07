@@ -1,5 +1,5 @@
 find_package(OpenCV REQUIRED)
 
-add_executable(RRT_PLANNER main.cpp)
+add_executable(PLANNER main.cpp)
 
-target_link_libraries(RRT_PLANNER PRIVATE ${OpenCV_LIBS})
+target_link_libraries(PLANNER PRIVATE ${OpenCV_LIBS})
