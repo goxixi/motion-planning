@@ -29,4 +29,5 @@ make
 ```
 ./bin/PLANNER
 ```
+ps: it seems that the programme cannot be runned at the `"motion_planning"` folder, in other words, we cannot not use the command `./build/bin/PLANNER` to run it.       
 input `ctrl+c` to exit
