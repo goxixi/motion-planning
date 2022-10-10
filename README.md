@@ -12,6 +12,10 @@ By the way, this is my first public repo!
 ### 2.Dijkstra
 <img src='demo/dijkstra_demo01.gif' width=30%>
 
+
+### 3.A*
+<img src='demo/astar_demo01.gif' width=30%>
+
 ## dependence
 ### 1.cmake
 ### 2.opencv 4
