@@ -19,7 +19,7 @@ By the way, this is my first public repo!
 ## dependence
 ### 1.cmake
 ### 2.opencv 4
-* [opencv 4.5.2](https://github.com/goxixi/motion-planning/wiki#how-to-configurate-opencv)
+* [how to configurate opencv 4.5.2 in Linux](https://github.com/goxixi/motion-planning/wiki#how-to-configurate-opencv)
 
 ## make
 ### Linux
@@ -33,5 +33,6 @@ make
 ```
 ./bin/PLANNER
 ```
-ps: it seems that the programme cannot be runned at the `"motion_planning"` folder, in other words, we cannot not use the command `./build/bin/PLANNER` to run it.       
+ps: please run the programme at the folder `"motion-planning/build"` of run it at `"motion-planning/build/bin"` with `./PLANNER`      
+
 input `ctrl+c` to exit
