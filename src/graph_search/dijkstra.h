@@ -45,7 +45,7 @@ bool Dijkstra::findPath() {
                 waitKey(10);
             }
 
-            imshow("Dijkstra visulization", mat_temp);
+            // imshow("Dijkstra visulization", mat_temp);
             waitKey(0);
             return true;
         }
@@ -55,7 +55,7 @@ bool Dijkstra::findPath() {
             int index_in_openlist = open_list_.find(point);
             if(index_in_openlist == -1) {
                 double cost_temp = openlist_node->cost + map_.getDistance(openlist_node->pos, point);
-                open_list_.insert(createPriQueueNode(point, openlist_node->parent, cost_temp));
+                open_list_.insert(createPriQueueNode(point, openlist_node, cost_temp));
                 circle(mat_temp, Point(point.second, point.first), 2, Scalar(0, 255, 0), -1);
             } else {
                 open_list_.decreaseKey(index_in_openlist, openlist_node->cost + map_.getDistance(point, openlist_node->pos));
