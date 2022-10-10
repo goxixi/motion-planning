@@ -9,6 +9,9 @@ By the way, this is my first public repo!
 ### 1.RRT
 <img src='demo/demo01.gif' width=30%>　<img src='demo/demo02.gif' width=28.8%>
 
+### 2.Dijkstra
+<img src='demo/dijkstra_demo01.gif' width=30%>
+
 ## dependence
 ### 1.cmake
 ### 2.opencv 4
