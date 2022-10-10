@@ -14,7 +14,7 @@ struct PriQueueNode {
 
     PriQueueNode() : g(0), h(0) {};
     PriQueueNode(pair<int,int> _pos, PriQueueNode* _parent, double _g) : pos(_pos), parent(_parent), g(_g), h(0){};
-    PriQueueNode(pair<int,int> _pos, PriQueueNode* _parent, double _g, double _h, double _f) : pos(_pos), parent(_parent), g(_g), h(_h) {};
+    PriQueueNode(pair<int,int> _pos, PriQueueNode* _parent, double _g, double _h) : pos(_pos), parent(_parent), g(_g), h(_h) {};
 };
 
 class PriQueue
