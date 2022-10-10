@@ -30,7 +30,7 @@ protected:
     vector<pair<int, int>> path_;
     Map map_;
 
-    PriQueueNode* createPriQueueNode(pair<int,int> point, PriQueueNode* parent, double cost);
+    PriQueueNode* createPriQueueNode(pair<int,int> point, PriQueueNode* parent, double f);
 
     vector<pair<int,int>> getUnexpandedNeighbors(pair<int,int> point);
 };
@@ -54,11 +54,11 @@ vector<pair<int,int>> GraphSearcher::getPath() {
     return path_;
 }
 
-PriQueueNode* GraphSearcher::createPriQueueNode(pair<int,int> point, PriQueueNode* parent, double cost) {
+PriQueueNode* GraphSearcher::createPriQueueNode(pair<int,int> point, PriQueueNode* parent, double g) {
     PriQueueNode* openlist_node = new(PriQueueNode);
     openlist_node->pos = point;
     openlist_node->parent = parent;
-    openlist_node->cost = cost;
+    openlist_node->g = g;
     return openlist_node;
 }
 

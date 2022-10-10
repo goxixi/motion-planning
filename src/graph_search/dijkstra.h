@@ -29,11 +29,10 @@ bool Dijkstra::findPath() {
     PriQueueNode* openlist_node = createPriQueueNode(point_start_,init_node,0.0);
     open_list_.insert(openlist_node);
     while (!open_list_.empty()) {
-        PriQueueNode* openlist_node = open_list_.top();
+        PriQueueNode* openlist_node = open_list_.pop();
         circle(mat_temp, Point(openlist_node->pos.second, openlist_node->pos.first), 2, Scalar(255, 0, 0), -1);//blue
         // close_list_.insert(openlist_node->pos);
         close_list_[openlist_node->pos] = openlist_node->parent->pos;
-        open_list_.pop();
 
         if(openlist_node->pos == point_goal_) {
             pair<int,int> point_path = openlist_node->pos;
@@ -56,11 +55,13 @@ bool Dijkstra::findPath() {
         for(auto point : unexpaned_neighbors) {
             int index_in_openlist = open_list_.find(point);
             if(index_in_openlist == -1) {
-                double cost_temp = openlist_node->cost + map_.getDistance(openlist_node->pos, point);
-                open_list_.insert(createPriQueueNode(point, openlist_node, cost_temp));
+                double g_temp = openlist_node->g + map_.getDistance(openlist_node->pos, point); 
+                PriQueueNode* temp = new PriQueueNode(point, openlist_node, g_temp);
+                open_list_.insert(temp);
+                // open_list_.insert(createPriQueueNode(point, openlist_node, g_temp));
                 circle(mat_temp, Point(point.second, point.first), 2, Scalar(0, 255, 0), -1);
             } else {
-                open_list_.decreaseKey(index_in_openlist, openlist_node->cost + map_.getDistance(point, openlist_node->pos));
+                open_list_.decreaseKey(index_in_openlist, openlist_node->g + map_.getDistance(point, openlist_node->pos));
             }
         }
 
