@@ -37,18 +37,17 @@ bool Dijkstra::findPath() {
 
         if(openlist_node->pos == point_goal_) {
             pair<int,int> point_path = openlist_node->pos;
-            pair<int,int> point_path_parent;
+            pair<int,int> point_path_parent = openlist_node->pos;
             while(point_path != point_start_) {
                 circle(mat_temp, Point(point_path.second, point_path.first), 2, Scalar(0, 0, 255), -1);	    //red
-                // point_path_parent = point_path;
+                line(mat_temp, Point(point_path_parent.second, point_path_parent.first), Point(point_path.second, point_path.first), Scalar(0, 0, 255), 1, CV_AA);//red
+                point_path_parent = point_path;
                 point_path = close_list_[point_path]; //point_path = point_path's parent
-                // line(mat_temp, Point(point_path.second, point_path.first), Point(point_path_parent.first, point_path_parent.second), Scalar(0, 0, 255), 1, CV_AA);
 
                 imshow("Dijkstra visulization", mat_temp);
                 waitKey(10);
             }
 
-            // imshow("Dijkstra visulization", mat_temp);
             waitKey(0);
             return true;
         }
