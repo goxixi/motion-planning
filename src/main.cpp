@@ -3,9 +3,9 @@
 
 int main(void)
 {
-    string picture = "../map/newmap2.png";
-    // Map map(picture, 100, 20, 500, 600); // newmap.png
-    Map map(picture, 400, 400, 50, 50); // newmap2.png
+    string picture = "../map/newmap.png";
+    Map map(picture, 100, 20, 500, 600); // map.png
+    // Map map(picture, 400, 400, 400, 50); // map2.png
     // RRT rrt(map);
     // rrt.findPath();
     Dijkstra dijkstra;
