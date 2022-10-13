@@ -1,6 +1,7 @@
 #include "RRT/RRT.h"
 #include "graph_search/dijkstra.h"
 #include "graph_search/a_star.h"
+#include "mathematics/obvp_solver.hpp"
 
 int main(void)
 {
