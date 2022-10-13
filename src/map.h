@@ -8,6 +8,7 @@
 
 using namespace cv;
 
+//TODO:(gcx) change the name to GripMap
 class Map
 {
 public:
