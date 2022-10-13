@@ -20,6 +20,7 @@ By the way, this is my first public repo!
 ### 1.cmake
 ### 2.opencv 4
 * [how to configurate opencv 4.5.2 in Linux](https://github.com/goxixi/motion-planning/wiki#how-to-configurate-opencv)
+### 3.eigen3
 
 ## make
 ### Linux
