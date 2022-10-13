@@ -22,6 +22,7 @@ public:
 	void findPath();
 private:
 	Tree tree_;
+	//TODO(gcx): RRT should not store an object of Map which should be passed into the pathFinder(); dijkstra and astar are the same
 	Map map_;
 	Mat mat_bin_;
 	vector<int> map_size_;

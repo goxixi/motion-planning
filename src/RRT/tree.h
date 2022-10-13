@@ -18,11 +18,30 @@ public:
 		TreeNode() : position(vector<int>(2, 0)), parent(nullptr), firstchild(nullptr), nextsibling(nullptr) {};
 		TreeNode(int x, int y) : position(vector<int>{x, y}), parent(nullptr), firstchild(nullptr), nextsibling(nullptr) {};
 	};
+
+	/**
+	 * @brief allocate space for the root of the tree, with the postion of the start point
+	 * @param the postion of the start point
+	 */
 	void setRoot(int x, int y);
+
+	/**
+	 * @brief add a node to the tree
+	 * @param pointer of the new node's parent; position of the new node
+	 * @return pointer of the new node
+	 */
 	Tree::TreeNode* addNode(TreeNode* node_parent, vector<int> point_new);
+
 	TreeNode* findNode(vector<int> pos);
+
+	/**
+	 * @brief get the node that is closest with the given position by traversal
+	 * @param position
+	 * @return pointer of the closest node 
+	 */
 	TreeNode* getNearestNode(vector<int> pos);
 
+	//TODO(gcx): kd-tree
 private:
 	TreeNode* root_ = nullptr;
 };
