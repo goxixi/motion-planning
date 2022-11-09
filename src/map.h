@@ -6,7 +6,13 @@
 #include <vector>
 #include <string>
 
+#include "point.h"
+
 using namespace cv;
+using std::string;
+using std::vector;
+using std::pair;
+using std::cout;
 
 //TODO:(gcx) change the name to GripMap
 class Map
@@ -56,6 +62,9 @@ public:
 	 * @return true -- outside the obstacle; false -- in the obstacle
 	 */
 	bool isFeasiblePoint(pair<int,int> point);
+
+	bool isFeasiblePoint(Point point);
+
 private:
 	//the mat with 3 channals
 	Mat mat_init_;
@@ -154,6 +163,16 @@ bool Map::isFeasiblePoint(pair<int,int> point) {
 	if (point.first < 0 || point.first > map_size_[0] ||
 		point.second < 0 || point.second > map_size_[1] ||
 		(int)mat_bin_.at<uchar>(point.first, point.second) < 100)
+	{
+		return false;
+	}
+	return true;
+}
+
+bool Map::isFeasiblePoint(Point point) {
+	if (point.x < 0 || point.y > map_size_[0] ||
+		point.x < 0 || point.y > map_size_[1] ||
+		(int)mat_bin_.at<uchar>(point.x, point.y) < 100)
 	{
 		return false;
 	}
