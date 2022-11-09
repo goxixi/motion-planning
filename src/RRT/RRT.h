@@ -6,7 +6,6 @@
 #include <vector>
 #include <ctime>
 
-using namespace std;
 using namespace cv;
 
 class RRT
