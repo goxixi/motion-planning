@@ -3,8 +3,7 @@
 
 #include "graph_search.h"
 
-class Dijkstra : public GraphSearcher
-{
+class Dijkstra : public GraphSearcher {
 public:
     Dijkstra();
     ~Dijkstra();
@@ -31,9 +30,9 @@ bool Dijkstra::findPath() {
     while (!open_list_.empty()) {
         PriQueueNode* openlist_node = open_list_.pop();
         circle(mat_temp, Point(openlist_node->pos.second, openlist_node->pos.first), 2, Scalar(255, 0, 0), -1);//blue
-        // close_list_.insert(openlist_node->pos);
         close_list_[openlist_node->pos] = openlist_node->parent->pos;
 
+        // have found the goal, then get the path by getting the parent node of the current node recursively
         if(openlist_node->pos == point_goal_) {
             pair<int,int> point_path = openlist_node->pos;
             pair<int,int> point_path_parent = openlist_node->pos;
@@ -54,11 +53,11 @@ bool Dijkstra::findPath() {
         vector<pair<int,int>> unexpaned_neighbors = getUnexpandedNeighbors(openlist_node->pos);
         for(auto point : unexpaned_neighbors) {
             int index_in_openlist = open_list_.find(point);
+            // index_in_openlist==-1 means that it has not been in the openlist(the points will not be removed from the openlist even if they have been push into the closelist)
             if(index_in_openlist == -1) {
                 double g_temp = openlist_node->g + map_.getDistance(openlist_node->pos, point); 
                 PriQueueNode* temp = new PriQueueNode(point, openlist_node, g_temp);
                 open_list_.insert(temp);
-                // open_list_.insert(createPriQueueNode(point, openlist_node, g_temp));
                 circle(mat_temp, Point(point.second, point.first), 2, Scalar(0, 255, 0), -1);
             } else {
                 open_list_.decreaseKey(index_in_openlist, openlist_node->g + map_.getDistance(point, openlist_node->pos));
@@ -68,7 +67,8 @@ bool Dijkstra::findPath() {
         imshow("Dijkstra visulization", mat_temp);
         waitKey(1);
     }
-
+    
+    // the openlist is empty, which means that can not find a path 
     return false;
 }
 
