@@ -7,17 +7,18 @@
 #include <set>
 #include <map>
 
-#include "../map.h"
+#include "../common/grip_map.h"
 #include "pri_queue.h"
 
-using namespace std;
+using std::map;
+using std::pair;
 
 class GraphSearcher
 {
 public:
     GraphSearcher();
     ~GraphSearcher();
-    void setMap(Map& map);
+    void setMap(GripMap& map);
     vector<pair<int,int>> getPath();
 
 protected:
@@ -28,7 +29,7 @@ protected:
     pair<int, int> point_start_;
     pair<int, int> point_goal_;
     vector<pair<int, int>> path_;
-    Map map_;
+    GripMap map_;
 
     PriQueueNode* createPriQueueNode(pair<int,int> point, PriQueueNode* parent, double f);
 
@@ -39,7 +40,7 @@ GraphSearcher::GraphSearcher() {};
 
 GraphSearcher::~GraphSearcher() {};
 
-void GraphSearcher::setMap(Map& map) {
+void GraphSearcher::setMap(GripMap& map) {
     map_ = map;
 
     vector<int> start = map.getStart();

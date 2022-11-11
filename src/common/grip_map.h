@@ -14,8 +14,7 @@ using std::vector;
 using std::pair;
 using std::cout;
 
-//TODO:(gcx) change the name to GripMap
-class Map
+class GripMap
 {
 public:
 	/**
@@ -26,9 +25,9 @@ public:
 	 * @prama goal point's x coordinate
 	 * @prama goal point's y coordinate
 	 */
-	Map();
-	Map(string picture, int start_x, int start_y, int goal_x, int goal_y);
-	~Map();
+	GripMap();
+	GripMap(string picture, int start_x, int start_y, int goal_x, int goal_y);
+	~GripMap();
 	vector<int> getStart();
 	vector<int> getGoal();
 	Mat getMat();
@@ -76,8 +75,8 @@ private:
 	vector<vector<int>> path_;
 };
 
-Map::Map() {};
-Map::Map(string picture,int start_x, int start_y, int goal_x, int goal_y) {
+GripMap::GripMap() {};
+GripMap::GripMap(string picture,int start_x, int start_y, int goal_x, int goal_y) {
 	start_point_[0] = start_x;
 	start_point_[1] = start_y;
 	goal_point_[0] = goal_x;
@@ -94,29 +93,29 @@ Map::Map(string picture,int start_x, int start_y, int goal_x, int goal_y) {
 	//threshold(mat_bin_, mat_bin_, 100, 200, THRESH_BINARY);
 }
 
-Map::~Map() {}
+GripMap::~GripMap() {}
 
-vector<int> Map::getStart() {
+vector<int> GripMap::getStart() {
 	return start_point_;
 }
 
-vector<int> Map::getGoal() {
+vector<int> GripMap::getGoal() {
 	return goal_point_;
 }
 
-Mat Map::getMat() {
+Mat GripMap::getMat() {
 	return mat_init_.clone();
 }
 
-Mat Map::getMatBin() {
+Mat GripMap::getMatBin() {
 	return mat_bin_.clone();
 }
 
-vector<int> Map::getMapSize() {
+vector<int> GripMap::getMapSize() {
 	return map_size_;
 }
 
-double Map::getDistance(vector<int> x1, vector<int> x2) {
+double GripMap::getDistance(vector<int> x1, vector<int> x2) {
 	if(x1[0] < 0 || x1[0] >= map_size_[0] ||
 		x1[1] < 0 || x1[1] >= map_size_[1]) 
 	{
@@ -132,7 +131,7 @@ double Map::getDistance(vector<int> x1, vector<int> x2) {
 	return sqrt((x1[0] - x2[0]) * (x1[0] - x2[0]) + (x1[1] - x2[1]) * (x1[1] - x2[1]));
 }
 
-double Map::getDistance(pair<int,int> x1, pair<int,int> x2) {
+double GripMap::getDistance(pair<int,int> x1, pair<int,int> x2) {
 	if(x1.first < 0 || x1.first >= map_size_[0] ||
 		x1.second < 0 || x1.second >= map_size_[1]) 
 	{
@@ -149,7 +148,7 @@ double Map::getDistance(pair<int,int> x1, pair<int,int> x2) {
 				+ (x1.second - x2.second) * (x1.second - x2.second));
 }
 
-bool Map::isFeasiblePoint(vector<int> point) {
+bool GripMap::isFeasiblePoint(vector<int> point) {
 	if (point[0] > 0 && point[0] < map_size_[0] &&
 		point[1] > 0 && point[1] < map_size_[1] &&
 		(int)mat_bin_.at<uchar>(point[0], point[1]) < 100)
@@ -159,7 +158,7 @@ bool Map::isFeasiblePoint(vector<int> point) {
 	return true;
 }
 
-bool Map::isFeasiblePoint(pair<int,int> point) {
+bool GripMap::isFeasiblePoint(pair<int,int> point) {
 	if (point.first < 0 || point.first > map_size_[0] ||
 		point.second < 0 || point.second > map_size_[1] ||
 		(int)mat_bin_.at<uchar>(point.first, point.second) < 100)
@@ -169,7 +168,7 @@ bool Map::isFeasiblePoint(pair<int,int> point) {
 	return true;
 }
 
-bool Map::isFeasiblePoint(Point point) {
+bool GripMap::isFeasiblePoint(Point point) {
 	if (point.x < 0 || point.y > map_size_[0] ||
 		point.x < 0 || point.y > map_size_[1] ||
 		(int)mat_bin_.at<uchar>(point.x, point.y) < 100)

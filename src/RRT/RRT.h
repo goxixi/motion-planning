@@ -1,17 +1,18 @@
 #ifndef _RRT_H_
 #define _RRT_H_
 
-#include "tree.h"
-#include "../map.h"
 #include <vector>
 #include <ctime>
+
+#include "tree.h"
+#include "../common/grip_map.h"
 
 using namespace cv;
 
 class RRT
 {
 public:
-	RRT(Map& map);
+	RRT(GripMap& map);
 	~RRT();
 
 	/**
@@ -21,8 +22,8 @@ public:
 	void findPath();
 private:
 	Tree tree_;
-	//TODO(gcx): RRT should not store an object of Map which should be passed into the pathFinder(); dijkstra and astar are the same
-	Map map_;
+	//TODO(gcx): RRT should not store an object of GripMap which should be passed into the pathFinder(); dijkstra and astar are the same
+	GripMap map_;
 	Mat mat_bin_;
 	vector<int> map_size_;
 	vector<int> point_start_;
@@ -79,7 +80,7 @@ private:
 	// bool isFeasiblePoint(vector<int> point);
 };
 
-RRT::RRT(Map& map) : map_(map), point_start_(map.getStart()), point_goal_(map.getGoal()), map_size_(map.getMapSize()), mat_bin_(map.getMatBin()) {
+RRT::RRT(GripMap& map) : map_(map), point_start_(map.getStart()), point_goal_(map.getGoal()), map_size_(map.getMapSize()), mat_bin_(map.getMatBin()) {
 	goal_range_ = 20;
 	step_size_ = 20;
 	tree_.setRoot(point_start_[0], point_start_[1]);
