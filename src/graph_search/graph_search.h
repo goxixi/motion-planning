@@ -8,54 +8,44 @@
 #include <map>
 
 #include "../common/grip_map.h"
+#include "../common/point.h"
 #include "pri_queue.h"
 
 using std::map;
-using std::pair;
+using std::vector;
+using common::GripMap;
 
 class GraphSearcher
 {
 public:
-    GraphSearcher();
+    GraphSearcher(const GripMap& _map, const common::Point& _point_start, const common::Point& _point_goal);
     ~GraphSearcher();
-    void setMap(GripMap& map);
-    vector<pair<int,int>> getPath();
+    vector<common::Point> getPath();
 
 protected:
     PriQueue open_list_;
-    // set<pair<int,int>> close_list_;    //point
-    map<pair<int,int>,pair<int,int>> close_list_;    //point, point's parent
+    // set<common::Point> close_list_;    //point
+    map<common::Point,common::Point> close_list_;    //point, point's parent
 
-    pair<int, int> point_start_;
-    pair<int, int> point_goal_;
-    vector<pair<int, int>> path_;
+    common::Point point_start_;
+    common::Point point_goal_;
+    vector<common::Point> path_;
     GripMap map_;
 
-    PriQueueNode* createPriQueueNode(pair<int,int> point, PriQueueNode* parent, double f);
+    PriQueueNode* createPriQueueNode(common::Point& point, PriQueueNode* parent, double f);
 
-    vector<pair<int,int>> getUnexpandedNeighbors(pair<int,int> point);
+    vector<common::Point> getUnexpandedNeighbors(common::Point& point);
 };
 
-GraphSearcher::GraphSearcher() {};
+GraphSearcher::GraphSearcher(const GripMap& _map, const common::Point& _point_start, const common::Point& _point_goal) : map_(_map), point_start_(_point_start), point_goal_(_point_goal) {};
 
 GraphSearcher::~GraphSearcher() {};
 
-void GraphSearcher::setMap(GripMap& map) {
-    map_ = map;
-
-    vector<int> start = map.getStart();
-    vector<int> goal = map.getGoal();
-    point_start_.first = start[0];
-    point_start_.second = start[1];
-    point_goal_.first = goal[0];
-    point_goal_.second = goal[1];
-}
-
-vector<pair<int,int>> GraphSearcher::getPath() {
+vector<common::Point> GraphSearcher::getPath() {
     return path_;
 }
 
-PriQueueNode* GraphSearcher::createPriQueueNode(pair<int,int> point, PriQueueNode* parent, double g) {
+PriQueueNode* GraphSearcher::createPriQueueNode(common::Point& point, PriQueueNode* parent, double g) {
     PriQueueNode* openlist_node = new(PriQueueNode);
     openlist_node->pos = point;
     openlist_node->parent = parent;
@@ -63,12 +53,12 @@ PriQueueNode* GraphSearcher::createPriQueueNode(pair<int,int> point, PriQueueNod
     return openlist_node;
 }
 
-vector<pair<int,int>> GraphSearcher::getUnexpandedNeighbors(pair<int,int> point) {
-    vector<pair<int,int>> neighbors;
+vector<common::Point> GraphSearcher::getUnexpandedNeighbors(common::Point& point) {
+    vector<common::Point> neighbors;
     int step = 10;
     for(int i=-step; i<=step; i+=step) {
         for(int j=-step; j<=step; j+=step) {
-            pair<int,int> point_new = pair<int,int>{point.first+i, point.second+j};
+            common::Point point_new = common::Point{point.x+i, point.y+j};
             if(map_.isFeasiblePoint(point_new) && close_list_.find(point_new) == close_list_.end() && (i!=0 || j!=0)) {
                 neighbors.emplace_back(point_new);
             }

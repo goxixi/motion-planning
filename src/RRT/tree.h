@@ -4,6 +4,9 @@
 #include <vector>
 #include <float.h>
 #include <cmath>
+
+#include "../common/point.h"
+
 using namespace std;
 
 class Tree
@@ -13,10 +16,10 @@ public:
 	~Tree();
 
 	struct TreeNode {
-		vector<int> position;
+		common::Point position;
 		TreeNode* parent, * firstchild, * nextsibling;
-		TreeNode() : position(vector<int>(2, 0)), parent(nullptr), firstchild(nullptr), nextsibling(nullptr) {};
-		TreeNode(int x, int y) : position(vector<int>{x, y}), parent(nullptr), firstchild(nullptr), nextsibling(nullptr) {};
+		TreeNode() : position(common::Point(2, 0)), parent(nullptr), firstchild(nullptr), nextsibling(nullptr) {};
+		TreeNode(int x, int y) : position(common::Point{x, y}), parent(nullptr), firstchild(nullptr), nextsibling(nullptr) {};
 	};
 
 	/**
@@ -30,16 +33,16 @@ public:
 	 * @param pointer of the new node's parent; position of the new node
 	 * @return pointer of the new node
 	 */
-	Tree::TreeNode* addNode(TreeNode* node_parent, vector<int> point_new);
+	Tree::TreeNode* addNode(TreeNode* node_parent, common::Point point_new);
 
-	TreeNode* findNode(vector<int> pos);
+	TreeNode* findNode(common::Point pos);
 
 	/**
 	 * @brief get the node that is closest with the given position by traversal
 	 * @param position
 	 * @return pointer of the closest node 
 	 */
-	TreeNode* getNearestNode(vector<int> pos);
+	TreeNode* getNearestNode(common::Point pos);
 
 	//TODO(gcx): kd-tree
 private:
@@ -54,8 +57,8 @@ void Tree::setRoot(int x, int y) {
 	root_ = new TreeNode(x, y);
 }
 
-Tree::TreeNode* Tree::addNode(TreeNode* node_parent, vector<int> point_new) {
-	TreeNode* node_new = new TreeNode(point_new[0], point_new[1]);
+Tree::TreeNode* Tree::addNode(TreeNode* node_parent, common::Point point_new) {
+	TreeNode* node_new = new TreeNode(point_new.x, point_new.y);
 	if (!node_parent->firstchild) {
 		node_parent->firstchild = node_new;
 		node_new->parent = node_parent;
@@ -72,7 +75,7 @@ Tree::TreeNode* Tree::addNode(TreeNode* node_parent, vector<int> point_new) {
 }
 
 
-Tree::TreeNode* Tree::findNode(vector<int> pos) {
+Tree::TreeNode* Tree::findNode(common::Point pos) {
 	TreeNode* cur_node = root_;
 	vector<TreeNode*> stack;
 	//preOrder traverce
@@ -94,7 +97,7 @@ Tree::TreeNode* Tree::findNode(vector<int> pos) {
 	return cur_node;
 }
 
-Tree::TreeNode* Tree::getNearestNode(vector<int> pos) {
+Tree::TreeNode* Tree::getNearestNode(common::Point pos) {
 	TreeNode* cur_node = root_;
 	vector<TreeNode*> stack;
 	double min_distance = DBL_MAX;
@@ -102,7 +105,7 @@ Tree::TreeNode* Tree::getNearestNode(vector<int> pos) {
 	//preOrder traverce
 	while (cur_node || !stack.empty()) {
 		if (cur_node) {
-			double dis = sqrt((cur_node->position[0] - pos[0]) * (cur_node->position[0] - pos[0]) + (cur_node->position[1] - pos[1]) * (cur_node->position[1] - pos[1]));
+			double dis = sqrt((cur_node->position.x - pos.x) * (cur_node->position.x - pos.x) + (cur_node->position.y - pos.y) * (cur_node->position.y - pos.y));
 			if (min_distance > dis) {
 				min_distance = dis;
 				nearest_node = cur_node;
@@ -112,7 +115,7 @@ Tree::TreeNode* Tree::getNearestNode(vector<int> pos) {
 		}
 		else {
 			cur_node = stack[stack.size() - 1];
-			double dis = sqrt((cur_node->position[0] - pos[0]) * (cur_node->position[0] - pos[0]) + (cur_node->position[1] - pos[1]) * (cur_node->position[1] - pos[1]));
+			double dis = sqrt((cur_node->position.x - pos.x) * (cur_node->position.x - pos.x) + (cur_node->position.y - pos.y) * (cur_node->position.y - pos.y));
 			if (min_distance > dis) {
 				min_distance = dis;
 				nearest_node = cur_node;

@@ -4,15 +4,15 @@
 
 int main(void){
     string picture = "../map/map1.png";
-    GripMap map(picture, 100, 20, 500, 600); // map.png
+    GripMap map(picture); // map.png
         
-    // GripMap map(picture, 400, 400, 400, 50); // map3.png
-    // RRT rrt(map);
-    // rrt.findPath();
+    common::Point point_start{500, 500};
+    common::Point point_goal{100, 100};
+    RRT rrt(map, point_start, point_goal);
+    rrt.findPath();
 
-    Dijkstra dijkstra;
-    dijkstra.setMap(map);
-    dijkstra.findPath();
+    // Dijkstra dijkstra(map, 100, 100);
+    // dijkstra.findPath();
 
     // AStar astar;
     // astar.setMap(map);

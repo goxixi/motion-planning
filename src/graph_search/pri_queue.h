@@ -4,17 +4,19 @@
 #include <utility>
 #include <vector>
 
+#include "../common/point.h"
+
 using namespace std;
 
 struct PriQueueNode {
-    pair<int,int> pos;
+    common::Point pos;
     PriQueueNode* parent;
     double g;
     double h;
 
     PriQueueNode() : g(0), h(0) {};
-    PriQueueNode(pair<int,int> _pos, PriQueueNode* _parent, double _g) : pos(_pos), parent(_parent), g(_g), h(0){};
-    PriQueueNode(pair<int,int> _pos, PriQueueNode* _parent, double _g, double _h) : pos(_pos), parent(_parent), g(_g), h(_h) {};
+    PriQueueNode(common::Point& _pos, PriQueueNode* _parent, double _g) : pos(_pos), parent(_parent), g(_g), h(0){};
+    PriQueueNode(common::Point& _pos, PriQueueNode* _parent, double _g, double _h) : pos(_pos), parent(_parent), g(_g), h(_h) {};
 };
 
 class PriQueue
@@ -26,7 +28,7 @@ public:
     PriQueueNode* pop();
     void insert(PriQueueNode* new_node);
     bool decreaseKey(int index, double new_g);
-    int find(pair<int,int>);
+    int find(common::Point);
     PriQueueNode* getNode(int index);
     bool empty();
 private:
@@ -80,7 +82,7 @@ bool PriQueue::decreaseKey(int index, double new_g) {
     return false;
 }
 
-int PriQueue::find(pair<int,int> point) {
+int PriQueue::find(common::Point point) {
     for(int i=0; i<pri_que_.size(); ++i) {
         if(pri_que_[i]->pos == point) {
             return i;
