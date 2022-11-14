@@ -26,6 +26,7 @@ public:
     ~PriQueue();
     PriQueueNode* top();
     PriQueueNode* pop();
+    void insert(common::Point pos, PriQueueNode* parent, double g, double h=0);
     void insert(PriQueueNode* new_node);
     bool decreaseKey(int index, double new_g);
     int find(common::Point);
@@ -68,6 +69,11 @@ PriQueueNode* PriQueue::pop() {
     auto it = pri_que_.begin() + index_min;
     pri_que_.erase(it);
     return node_min;
+}
+
+void PriQueue::insert(common::Point pos, PriQueueNode* parent, double g, double h=0) {
+    PriQueueNode* new_node = new PriQueueNode(pos, parent, g, h);
+    pri_que_.emplace_back(new_node);
 }
 
 void PriQueue::insert(PriQueueNode* new_node) {
