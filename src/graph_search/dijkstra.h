@@ -10,7 +10,7 @@ public:
     ~Dijkstra();
     /**
      * @brief the core code of Dijkstra()
-     * @return if find a path from point_start_ to point_goal_ 
+     * @return ture if find a path from point_start_ to point_goal_; otherwise false;
      */
     bool findPath();
 };
@@ -52,6 +52,7 @@ bool Dijkstra::findPath() {
             return true;
         }
 
+        // unexpanded means that the points have not been in the close_list
         vector<common::Point> unexpaned_neighbors = getUnexpandedNeighbors(openlist_node->pos);
         for(auto point : unexpaned_neighbors) {
             int index_in_openlist = open_list_.find(point);

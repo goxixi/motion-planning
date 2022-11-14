@@ -7,7 +7,11 @@ class AStar : public GraphSearcher
 {
 public:
     AStar(const GripMap& _map, const common::Point& _point_start, const common::Point& _point_goal);
-    ~AStar();
+    ~AStar();    
+    /**
+     * @brief the core code of A_star()
+     * @return ture if find a path from point_start_ to point_goal_; otherwise false;
+     */
     bool findPath();
 private:
     
@@ -30,10 +34,10 @@ bool AStar::findPath() {
     while (!open_list_.empty()) {
         PriQueueNode* openlist_node = open_list_.top();
         circle(mat_temp, Point(openlist_node->pos.y, openlist_node->pos.x), 2, Scalar(255, 0, 0), -1);//blue
-        // close_list_.insert(openlist_node->pos);
         close_list_[openlist_node->pos] = openlist_node->parent->pos;
         open_list_.pop();
 
+        // have found the goal, then get the path by getting the parent node of the current node recursively
         if(openlist_node->pos == point_goal_) {
             common::Point point_path = openlist_node->pos;
             common::Point point_path_parent = openlist_node->pos;
@@ -51,15 +55,16 @@ bool AStar::findPath() {
             return true;
         }
 
+        // unexpanded means that the points have not been in the close_list
         vector<common::Point> unexpaned_neighbors = getUnexpandedNeighbors(openlist_node->pos);
         for(auto point : unexpaned_neighbors) {
             int index_in_openlist = open_list_.find(point);
+            // index_in_openlist==-1 means that it has not been in the openlist(the points will not be removed from the openlist even if they have been push into the closelist)
             if(index_in_openlist == -1) {
                 double g_temp = openlist_node->g + common::getDistance(openlist_node->pos, point);
                 double h = common::getDistance(point, point_goal_);
                 PriQueueNode* temp = new PriQueueNode(point, openlist_node, g_temp, h);
                 open_list_.insert(temp);
-                // open_list_.insert(createPriQueueNode(point, openlist_node, cost_temp));
                 circle(mat_temp, Point(point.y, point.x), 2, Scalar(0, 255, 0), -1);
             } else {
                 open_list_.decreaseKey(index_in_openlist, openlist_node->g + common::getDistance(point, openlist_node->pos));
