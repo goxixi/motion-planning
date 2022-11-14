@@ -71,7 +71,7 @@ PriQueueNode* PriQueue::pop() {
     return node_min;
 }
 
-void PriQueue::insert(common::Point pos, PriQueueNode* parent, double g, double h=0) {
+void PriQueue::insert(common::Point pos, PriQueueNode* parent, double g, double h) {
     PriQueueNode* new_node = new PriQueueNode(pos, parent, g, h);
     pri_que_.emplace_back(new_node);
 }
