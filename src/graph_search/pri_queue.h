@@ -24,15 +24,28 @@ class PriQueue
 {
 public:
     PriQueue();
+
     ~PriQueue();
+
     PriQueueNode* top();
+
     PriQueueNode* pop();
+
     void insert(common::Point pos, PriQueueNode* parent, double g, double h=0);
+
     void insert(PriQueueNode* new_node);
+
+    void updateParent(int index, PriQueueNode* new_parent);
+
     bool decreaseKey(int index, double new_g);
+
     int find(common::Point);
+
     PriQueueNode* getNode(int index);
+
     bool empty();
+
+    PriQueueNode* operator[](int i);
 private:
     vector<PriQueueNode*> pri_que_;
 };
@@ -83,6 +96,10 @@ void PriQueue::insert(PriQueueNode* new_node) {
     pri_que_.emplace_back(new_node);
 }
 
+void PriQueue::updateParent(int index, PriQueueNode* new_parent) {
+    pri_que_[index]->parent = new_parent;
+}
+
 bool PriQueue::decreaseKey(int index, double new_g) {
     if(pri_que_[index]->g > new_g) { 
         pri_que_[index]->g = new_g;
@@ -106,6 +123,10 @@ PriQueueNode* PriQueue::getNode(int index) {
 
 bool PriQueue::empty() {
     return pri_que_.empty();
+}
+
+PriQueueNode* PriQueue::operator[](int i) {
+    return pri_que_[i]; 
 }
 
 #endif // !_PRI_QUEUE_H_
