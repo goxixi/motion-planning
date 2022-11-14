@@ -55,14 +55,14 @@ bool AStar::findPath() {
         for(auto point : unexpaned_neighbors) {
             int index_in_openlist = open_list_.find(point);
             if(index_in_openlist == -1) {
-                double g_temp = openlist_node->g + map_.getDistance(openlist_node->pos, point);
-                double h = map_.getDistance(point, point_goal_);
+                double g_temp = openlist_node->g + common::getDistance(openlist_node->pos, point);
+                double h = common::getDistance(point, point_goal_);
                 PriQueueNode* temp = new PriQueueNode(point, openlist_node, g_temp, h);
                 open_list_.insert(temp);
                 // open_list_.insert(createPriQueueNode(point, openlist_node, cost_temp));
                 circle(mat_temp, Point(point.y, point.x), 2, Scalar(0, 255, 0), -1);
             } else {
-                open_list_.decreaseKey(index_in_openlist, openlist_node->g + map_.getDistance(point, openlist_node->pos));
+                open_list_.decreaseKey(index_in_openlist, openlist_node->g + common::getDistance(point, openlist_node->pos));
             }
         }
 

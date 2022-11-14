@@ -136,7 +136,7 @@ inline Tree::TreeNode* RRT::getNear(common::Point  point_rand) {
 }
 
 common::Point RRT::steer(common::Point point_rand, common::Point point_near) {
-	double distance = map_.getDistance(point_rand, point_near);
+	double distance = common::getDistance(point_rand, point_near);
 	common::Point point{0,0};
 	point.x = (int)(point_near.x + (point_rand.x - point_near.x) * step_size_ / distance);
 	point.y = (int)(point_near.y + (point_rand.y - point_near.y) * step_size_ / distance);
@@ -144,7 +144,7 @@ common::Point RRT::steer(common::Point point_rand, common::Point point_near) {
 }
 
 inline bool RRT::isSuccess(common::Point point_new) {
-	if (goal_range_ > map_.getDistance(point_new, point_goal_)) {
+	if (goal_range_ > common::getDistance(point_new, point_goal_)) {
 		return true;
 	}
 	return false;
@@ -152,7 +152,7 @@ inline bool RRT::isSuccess(common::Point point_new) {
 
 bool RRT::collisionCheck(common::Point point1, common::Point point2) {
 	//return isFeasiblePoint(point1);
-	int distance = map_.getDistance(point1, point2);
+	int distance = common::getDistance(point1, point2);
 	common::Point point_temp{point1.x, point1.y};
 	for (int i = 0; i < distance; ++i) {
 		point_temp.x = point1.x + (int)((point2.x - point1.x) * i / distance);

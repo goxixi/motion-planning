@@ -57,12 +57,12 @@ bool Dijkstra::findPath() {
             int index_in_openlist = open_list_.find(point);
             // index_in_openlist==-1 means that it has not been in the openlist(the points will not be removed from the openlist even if they have been push into the closelist)
             if(index_in_openlist == -1) {
-                double g_temp = openlist_node->g + map_.getDistance(openlist_node->pos, point); 
+                double g_temp = openlist_node->g + common::getDistance(openlist_node->pos, point); 
                 PriQueueNode* temp = new PriQueueNode(point, openlist_node, g_temp);
                 open_list_.insert(temp);
                 circle(mat_temp, Point(point.y, point.x), 2, Scalar(0, 255, 0), -1);
             } else {
-                open_list_.decreaseKey(index_in_openlist, openlist_node->g + map_.getDistance(point, openlist_node->pos));
+                open_list_.decreaseKey(index_in_openlist, openlist_node->g + common::getDistance(point, openlist_node->pos));
             }
         }
 

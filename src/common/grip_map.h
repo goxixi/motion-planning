@@ -21,10 +21,6 @@ public:
 	/**
 	 * @brief struct
 	 * @prama string of the path of the map's picture
-	 * @prama start point's x coordinate
-	 * @prama start point's y coordinate
-	 * @prama goal point's x coordinate
-	 * @prama goal point's y coordinate
 	 */
 	GripMap();
 	GripMap(string picture);
@@ -33,13 +29,6 @@ public:
 	Mat getMat();
 	Mat getMatBin();
 	vector<int> getMapSize();
-
-	/**
-	 * @brief get distance
-	 * @param two point(common::Point)
-	 * @return the Euclidean Distance between x1 and x2
-	 */
-	double getDistance(common::Point x1, common::Point x2);
 
 	/**
 	 * @check if the point is in the obstacle
@@ -91,23 +80,6 @@ Mat GripMap::getMatBin() {
 
 vector<int> GripMap::getMapSize() {
 	return map_size_;
-}
-
-double GripMap::getDistance(common::Point x1, common::Point x2) {
-	if(x1.x < 0 || x1.x >= map_size_[0] ||
-		x1.y < 0 || x1.y >= map_size_[1]) 
-	{
-		cout << "fail: the first point is out the map\n";
-		return -1;
-	}
-	if(x2.x < 0 || x2.x >= map_size_[0] ||
-		x2.y < 0 || x2.y >= map_size_[1]) 
-	{
-		cout << "fail: the second point is out the map\n";
-		return -1;
-	}
-	return sqrt((x1.x - x2.x) * (x1.x - x2.x) 
-				+ (x1.y - x2.y) * (x1.y - x2.y));
 }
 
 bool GripMap::isFeasiblePoint(common::Point point) {
