@@ -26,8 +26,9 @@ bool Dijkstra::findPath() {
 	circle(mat_temp, Point(point_goal_.y, point_goal_.x), 8, Scalar(0, 255, 0), -1);		//green
 
     PriQueueNode* init_node = createPriQueueNode(point_start_, nullptr,0.0);
-    PriQueueNode* openlist_node = createPriQueueNode(point_start_,init_node,0.0);
-    open_list_.insert(openlist_node);
+    PriQueueNode* node_start = createPriQueueNode(point_start_,init_node,0.0);
+    open_list_.insert(node_start);
+
     while (!open_list_.empty()) {
         PriQueueNode* openlist_node = open_list_.pop();
         circle(mat_temp, Point(openlist_node->pos.y, openlist_node->pos.x), 2, Scalar(255, 0, 0), -1);//blue
