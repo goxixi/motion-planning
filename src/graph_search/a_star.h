@@ -55,7 +55,7 @@ bool AStar::findPath() {
             return true;
         }
 
-        // unexpanded means that the points have not been in the close_list
+        // "unexpanded" means that the points have not been in the close_list
         vector<common::Point> unexpaned_neighbors = getUnexpandedNeighbors(openlist_node->pos);
         for(auto point : unexpaned_neighbors) {
             int index_in_openlist = open_list_.find(point);
