@@ -57,13 +57,17 @@ bool Dijkstra::findPath() {
         for(auto point : unexpanded_neighbors) {
             int index_in_openlist = open_list_.find(point);
             // index_in_openlist==-1 means that it isn't in the openlist(and the point is "unexpanded", so it is NEW)
+            double g_temp = openlist_node->g + common::getDistance(openlist_node->pos, point); 
             if(index_in_openlist == -1) {
-                double g_temp = openlist_node->g + common::getDistance(openlist_node->pos, point); 
+                // double g_temp = openlist_node->g + common::getDistance(openlist_node->pos, point); 
                 PriQueueNode* temp = new PriQueueNode(point, openlist_node, g_temp);
                 open_list_.insert(temp);
                 circle(mat_temp, Point(point.y, point.x), 2, Scalar(0, 255, 0), -1);
             } else {
-                open_list_.decreaseKey(index_in_openlist, openlist_node->g + common::getDistance(point, openlist_node->pos));
+                if(g_temp < open_list_[index_in_openlist]->f) {
+                    open_list_[index_in_openlist]->parent = openlist_node;   //find a shorter path and update the path
+                    open_list_.decreaseKey(index_in_openlist, g_temp);
+                }
             }
         }
 
