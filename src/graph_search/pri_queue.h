@@ -13,10 +13,11 @@ struct PriQueueNode {
     PriQueueNode* parent;
     double g;
     double h;
+    double f;
 
     PriQueueNode() : g(0), h(0) {};
-    PriQueueNode(common::Point& _pos, PriQueueNode* _parent, double _g) : pos(_pos), parent(_parent), g(_g), h(0){};
-    PriQueueNode(common::Point& _pos, PriQueueNode* _parent, double _g, double _h) : pos(_pos), parent(_parent), g(_g), h(_h) {};
+    PriQueueNode(common::Point& _pos, PriQueueNode* _parent, double _g) : pos(_pos), parent(_parent), g(_g), h(0), f(g+h){};
+    PriQueueNode(common::Point& _pos, PriQueueNode* _parent, double _g, double _h) : pos(_pos), parent(_parent), g(_g), h(_h), f(g+h) {};
 };
 
 class PriQueue
@@ -56,10 +57,12 @@ PriQueueNode* PriQueue::top() {
 
 PriQueueNode* PriQueue::pop() {
     PriQueueNode* node_min = pri_que_[0];
-    int f_min = pri_que_[0]->g + pri_que_[0]->h;
+    // int f_min = pri_que_[0]->g + pri_que_[0]->h;
+    int f_min = pri_que_[0]->f;
     int index_min = 0;
     for(int i=0; i<pri_que_.size(); ++i) {
-        int f_node = pri_que_[i]->g + pri_que_[i]->h;
+        // int f_node = pri_que_[i]->g + pri_que_[i]->h;
+        int f_node = pri_que_[i]->f;
         if(f_node < f_min) {
             f_min = f_node;
             node_min = pri_que_[i];
