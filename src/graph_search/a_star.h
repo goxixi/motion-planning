@@ -56,8 +56,8 @@ bool AStar::findPath() {
         }
 
         // "unexpanded" means that the points have not been in the close_list
-        vector<common::Point> unexpaned_neighbors = getUnexpandedNeighbors(openlist_node->pos);
-        for(auto point : unexpaned_neighbors) {
+        vector<common::Point> unexpanded_neighbors = getUnexpandedNeighbors(openlist_node->pos);
+        for(auto point : unexpanded_neighbors) {
             int index_in_openlist = open_list_.find(point);
             // index_in_openlist==-1 means that it isn't in the openlist(and the point is "unexpanded", so it is NEW)
             if(index_in_openlist == -1) {
