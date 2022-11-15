@@ -6,3 +6,5 @@ INCLUDE_DIRECTORIES(${EIGEN3_INCLUDE_DIR})
 add_executable(PLANNER main.cpp)
 
 target_link_libraries(PLANNER PRIVATE ${OpenCV_LIBS})
+
+SET(CMAKE_BUILD_TYPE "Debug")
