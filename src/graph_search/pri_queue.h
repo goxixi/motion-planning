@@ -102,7 +102,8 @@ void PriQueue::updateParent(int index, PriQueueNode* new_parent) {
 
 bool PriQueue::decreaseKey(int index, double new_g) {
     if(pri_que_[index]->g > new_g) { 
-        pri_que_[index]->g = new_g;
+        pri_que_[index]->g = new_g;        
+        pri_que_[index]->f = new_g + pri_que_[index]->h;
         return true;
     }
     return false;
