@@ -20,8 +20,7 @@ struct PriQueueNode {
     PriQueueNode(common::Point& _pos, PriQueueNode* _parent, double _g, double _h) : pos(_pos), parent(_parent), g(_g), h(_h), f(g+h) {};
 };
 
-class PriQueue
-{
+class PriQueue {
 public:
     PriQueue();
 
@@ -30,6 +29,8 @@ public:
     PriQueueNode* top();
 
     PriQueueNode* pop();
+
+    void removeFromOpen(PriQueueNode* node);
 
     void insert(common::Point pos, PriQueueNode* parent, double g, double h=0);
 
@@ -47,9 +48,8 @@ public:
 
     PriQueueNode* operator[](int i);
 private:
-    vector<PriQueueNode*> pri_que_;
+    vector<PriQueueNode*> pri_que_; //why not a pri_queue? because the elements in it should be modifiable
 };
-
 
 PriQueue::PriQueue() {};
 
@@ -57,12 +57,12 @@ PriQueue::~PriQueue() {};
 
 PriQueueNode* PriQueue::top() {
     PriQueueNode* node_min = pri_que_[0];
-    int f_min = pri_que_[0]->g + pri_que_[0]->h;
-    for(auto node:pri_que_) {
-        int f_node = node->g + node->h;
+    int f_min = pri_que_[0]->f;
+    for(int i=0; i<pri_que_.size(); ++i) {
+        int f_node = pri_que_[i]->f;
         if(f_node < f_min) {
             f_min = f_node;
-            node_min = node;
+            node_min = pri_que_[i];
         }
     }
     return node_min;
@@ -103,7 +103,7 @@ void PriQueue::updateParent(int index, PriQueueNode* new_parent) {
 bool PriQueue::decreaseKey(int index, double new_g) {
     if(pri_que_[index]->g > new_g) { 
         pri_que_[index]->g = new_g;        
-        pri_que_[index]->f = new_g + pri_que_[index]->h;
+        pri_que_[index]->f = new_g + pri_que_[index]->h;    // update f. the h will be 0 when it runs dijkstra
         return true;
     }
     return false;
