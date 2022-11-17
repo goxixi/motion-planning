@@ -27,6 +27,7 @@ public:
 	GripMap(const GripMap& _grip_map);
 	~GripMap();
 	Mat getMat();
+	Mat getOriginMat();
 	Mat getMatBin();
 	vector<int> getMapSize();
 
@@ -72,6 +73,10 @@ GripMap::~GripMap() {}
 
 Mat GripMap::getMat() {
 	return mat_init_.clone();
+}
+
+Mat GripMap::getOriginMat() {
+	return mat_init_;
 }
 
 Mat GripMap::getMatBin() {
